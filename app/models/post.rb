@@ -9,8 +9,8 @@ class Post < ActiveRecord::Base
   include PublicActivity::Model
   tracked only: [:create, :like], owner: proc { |_controller, model| model.user }
 
-  default_scope -> { order('created_at DESC') }
-
+  default_scope -> { where(draft: false).order('created_at DESC') }
+  scope :drafts, -> { where(draft: true).order('created_at DESC') }
   mount_uploader :attachment, AvatarUploader
 
   validates_presence_of :content

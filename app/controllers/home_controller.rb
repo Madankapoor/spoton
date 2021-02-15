@@ -8,6 +8,11 @@ class HomeController < ApplicationController
     @activities = PublicActivity::Activity.where(owner_id: @friends).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
   end
 
+  def drafts
+    @post  = Post.new
+    @posts = Post.unscoped.drafts.where(user_id: @user.id).paginate(page: params[:page], per_page: 10)
+  end
+
   def front
     @activities = PublicActivity::Activity.joins("INNER JOIN users ON activities.owner_id = users.id").order(created_at: :desc).paginate(page: params[:page], per_page: 10)
   end

@@ -8,6 +8,7 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.new(post_params)
+    @post.draft = true if is_draft? 
     if @post.save
       redirect_to root_path
     else
@@ -33,11 +34,15 @@ class PostsController < ApplicationController
 
   private
   def set_post
-    @post = Post.find_by(id: params[:id])
+    @post = Post.unscoped.find_by(id: params[:id])
     render_404 and return unless @post && User.find_by(id: @post.user_id)
   end
 
   def post_params
     params.require(:post).permit(:content, :attachment)
+  end
+
+  def is_draft?
+    params.keys.include? "draft"
   end
 end

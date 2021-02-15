@@ -16,7 +16,8 @@
       <a id="post-attachment" href="javascript:void(0);" class="pull-right btn btn-primary">
         <%= fa_icon 'image' %>
       </a>
-      <%= f.submit 'Post', class: 'btn btn-primary'%>
+      <%= f.submit 'Post', class: 'btn btn-primary' %>
+      <%= f.submit 'Save as Draft', :name => 'draft', class: 'btn btn-primary' %>
     </div>
     <% if @post.attachment.present? %>
       <div class="attachment">
