@@ -1,4 +1,4 @@
-# Spoton 
+# Spot On 
 
 Social Platform for posts. 
 
